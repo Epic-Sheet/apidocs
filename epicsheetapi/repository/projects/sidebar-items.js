@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_project_by_name_and_creator","get_project_by_uuid","get_projects_from_user","register_project"]};
