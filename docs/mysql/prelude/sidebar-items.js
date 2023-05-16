@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["AsStatement","BatchQuery","BinQuery","ColumnIndex","ConvIr","FromRow","FromValue","Protocol","Queryable","TextQuery","ToValue","WithParams"]};

@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"actix_web":[],
+"actix_web_grants":[["impl&lt;Type: <a class=\"trait\" href=\"https://doc.rust-lang.org/1.69.0/core/cmp/trait.PartialEq.html\" title=\"trait core::cmp::PartialEq\">PartialEq</a> + <a class=\"trait\" href=\"https://doc.rust-lang.org/1.69.0/core/clone/trait.Clone.html\" title=\"trait core::clone::Clone\">Clone</a> + 'static&gt; <a class=\"trait\" href=\"actix_web/guard/trait.Guard.html\" title=\"trait actix_web::guard::Guard\">Guard</a> for <a class=\"struct\" href=\"actix_web_grants/struct.PermissionGuard.html\" title=\"struct actix_web_grants::PermissionGuard\">PermissionGuard</a>&lt;Type&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

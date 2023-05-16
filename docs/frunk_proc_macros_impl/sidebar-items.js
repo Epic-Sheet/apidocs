@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["Path","proc_macro_hack_path"]};

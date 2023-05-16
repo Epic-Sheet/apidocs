@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MigrationType","Target"],"fn":["find_migration_files"],"mod":["config","error","traits"],"struct":["Migration","Report","Runner"]};

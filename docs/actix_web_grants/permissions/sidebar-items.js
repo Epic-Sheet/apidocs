@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AuthDetails"],"trait":["AttachPermissions","PermissionsCheck","PermissionsExtractor","RolesCheck"]};

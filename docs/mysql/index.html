@@ -1,0 +1,722 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This crate offers:"><title>mysql - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" disabled href="../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" disabled href="../static.files/ayu-be46fdc453a55015.css"><script src="../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-98a684e84ae5b08b.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../mysql/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../mysql/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate mysql</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 23.0.1</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">mysql</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/mysql/lib.rs.html#9-1041">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This crate offers:</p>
+<ul>
+<li>MySql database driver in pure rust;</li>
+<li>connection pool.</li>
+</ul>
+<p>Features:</p>
+<ul>
+<li>macOS, Windows and Linux support;</li>
+<li>TLS support via <strong>nativetls</strong> or <strong>rustls</strong> (see the <a href="#ssl-support">SSL Support</a> section);</li>
+<li>MySql text protocol support, i.e. support of simple text queries and text result sets;</li>
+<li>MySql binary protocol support, i.e. support of prepared statements and binary result sets;</li>
+<li>support of multi-result sets;</li>
+<li>support of named parameters for prepared statements (see the <a href="#named-parameters">Named Parameters</a> section);</li>
+<li>optional per-connection cache of prepared statements (see the <a href="#statement-cache">Statement Cache</a> section);</li>
+<li>buffer pool (see the <a href="#buffer-pool">Buffer Pool</a> section);</li>
+<li>support of MySql packets larger than 2^24;</li>
+<li>support of Unix sockets and Windows named pipes;</li>
+<li>support of custom LOCAL INFILE handlers;</li>
+<li>support of MySql protocol compression;</li>
+<li>support of auth plugins:
+<ul>
+<li><strong>mysql_native_password</strong> - for MySql prior to v8;</li>
+<li><strong>caching_sha2_password</strong> - for MySql v8 and higher.</li>
+</ul>
+</li>
+</ul>
+<h3 id="installation"><a href="#installation">Installation</a></h3>
+<p>Put the desired version of the crate into the <code>dependencies</code> section of your <code>Cargo.toml</code>:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+mysql = &quot;*&quot;
+</code></pre></div><h3 id="example"><a href="#example">Example</a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="attr">#[derive(Debug, PartialEq, Eq)]
+</span><span class="kw">struct </span>Payment {
+    customer_id: i32,
+    amount: i32,
+    account_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+}
+
+
+<span class="kw">fn </span>main() -&gt; std::result::Result&lt;(), Box&lt;<span class="kw">dyn </span>std::error::Error&gt;&gt; {
+    <span class="kw">let </span>url = <span class="string">&quot;mysql://root:password@localhost:3307/db_name&quot;</span>;
+    <span class="kw">let </span>pool = Pool::new(url)<span class="question-mark">?</span>;
+
+    <span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+
+    <span class="comment">// Let&#39;s create a table for payments.
+    </span>conn.query_drop(
+        <span class="string">r&quot;CREATE TEMPORARY TABLE payment (
+            customer_id int not null,
+            amount int not null,
+            account_name text
+        )&quot;</span>)<span class="question-mark">?</span>;
+
+    <span class="kw">let </span>payments = <span class="macro">vec!</span>[
+        Payment { customer_id: <span class="number">1</span>, amount: <span class="number">2</span>, account_name: <span class="prelude-val">None </span>},
+        Payment { customer_id: <span class="number">3</span>, amount: <span class="number">4</span>, account_name: <span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>.into()) },
+        Payment { customer_id: <span class="number">5</span>, amount: <span class="number">6</span>, account_name: <span class="prelude-val">None </span>},
+        Payment { customer_id: <span class="number">7</span>, amount: <span class="number">8</span>, account_name: <span class="prelude-val">None </span>},
+        Payment { customer_id: <span class="number">9</span>, amount: <span class="number">10</span>, account_name: <span class="prelude-val">Some</span>(<span class="string">&quot;bar&quot;</span>.into()) },
+    ];
+
+    <span class="comment">// Now let&#39;s insert payments to the database
+    </span>conn.exec_batch(
+        <span class="string">r&quot;INSERT INTO payment (customer_id, amount, account_name)
+          VALUES (:customer_id, :amount, :account_name)&quot;</span>,
+        payments.iter().map(|p| <span class="macro">params! </span>{
+            <span class="string">&quot;customer_id&quot; </span>=&gt; p.customer_id,
+            <span class="string">&quot;amount&quot; </span>=&gt; p.amount,
+            <span class="string">&quot;account_name&quot; </span>=&gt; <span class="kw-2">&amp;</span>p.account_name,
+        })
+    )<span class="question-mark">?</span>;
+
+    <span class="comment">// Let&#39;s select payments from database. Type inference should do the trick here.
+    </span><span class="kw">let </span>selected_payments = conn
+        .query_map(
+            <span class="string">&quot;SELECT customer_id, amount, account_name from payment&quot;</span>,
+            |(customer_id, amount, account_name)| {
+                Payment { customer_id, amount, account_name }
+            },
+        )<span class="question-mark">?</span>;
+
+    <span class="comment">// Let&#39;s make sure, that `payments` equals to `selected_payments`.
+    // Mysql gives no guaranties on order of returned rows
+    // without `ORDER BY`, so assume we are lucky.
+    </span><span class="macro">assert_eq!</span>(payments, selected_payments);
+    <span class="macro">println!</span>(<span class="string">&quot;Yay!&quot;</span>);
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div>
+<h3 id="crate-features"><a href="#crate-features">Crate Features</a></h3>
+<ul>
+<li>
+<p>feature sets:</p>
+<ul>
+<li><strong>default</strong> – includes default <code>mysql_common</code> features, <code>native-tls</code>, <code>buffer-pool</code>
+and <code>flate2/zlib</code></li>
+<li><strong>default-rustls</strong> - same as <code>default</code> but with <code>rustls-tls</code> instead of <code>native-tls</code></li>
+<li><strong>minimal</strong> - includes <code>flate2/zlib</code></li>
+</ul>
+</li>
+<li>
+<p>crate’s features:</p>
+<ul>
+<li><strong>native-tls</strong> (enabled by default) – specifies <code>native-tls</code> as the TLS backend
+(see the <a href="#ssl-support">SSL Support</a> section)</li>
+<li><strong>rustls-tls</strong> (disabled by default) – specifies <code>rustls</code> as the TLS backend
+(see the <a href="#ssl-support">SSL Support</a> section)</li>
+<li><strong>buffer-pool</strong> (enabled by default) – enables buffer pooling
+(see the <a href="#buffer-pool">Buffer Pool</a> section)</li>
+</ul>
+</li>
+<li>
+<p>external features enabled by default:</p>
+<ul>
+<li>
+<p>for the <code>flate2</code> crate (please consult <code>flate2</code> crate documentation for available features):</p>
+<ul>
+<li><strong>flate2/zlib</strong> (necessary) – <code>zlib</code> backend is chosed by default.</li>
+</ul>
+</li>
+<li>
+<p>for the <code>mysql_common</code> crate (please consult <code>mysql_common</code> crate documentation for available features):</p>
+<ul>
+<li><strong>mysql_common/bigdecimal03</strong> – the <code>bigdecimal03</code> is enabled by default</li>
+<li><strong>mysql_common/rust_decimal</strong> – the <code>rust_decimal</code> is enabled by default</li>
+<li><strong>mysql_common/time03</strong> – the <code>time03</code> is enabled by default</li>
+<li><strong>mysql_common/uuid</strong> – the <code>uuid</code> is enabled by default</li>
+<li><strong>mysql_common/frunk</strong> – the <code>frunk</code> is enabled by default</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Please note, that you’ll need to reenable required features if you are using <code>default-features = false</code>:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+# Lets say that we want to use the `rustls-tls` feature:
+mysql = { version = &quot;*&quot;, default-features = false, features = [&quot;minimal&quot;, &quot;rustls-tls&quot;] }
+# Previous line disables default mysql features,
+# so now we need to choose desired mysql_common features:
+mysql_common = { version = &quot;*&quot;, default-features = false, features = [&quot;bigdecimal03&quot;, &quot;time03&quot;, &quot;uuid&quot;]}
+</code></pre></div><h3 id="api-documentation"><a href="#api-documentation">API Documentation</a></h3>
+<p>Please refer to the <a href="https://docs.rs/mysql">crate docs</a>.</p>
+<h3 id="basic-structures"><a href="#basic-structures">Basic structures</a></h3><h4 id="opts"><a href="#opts"><code>Opts</code></a></h4>
+<p>This structure holds server host name, client username/password and other settings,
+that controls client behavior.</p>
+<h5 id="url-based-connection-string"><a href="#url-based-connection-string">URL-based connection string</a></h5>
+<p>Note, that you can use URL-based connection string as a source of an <code>Opts</code> instance.
+URL schema must be <code>mysql</code>. Host, port and credentials, as well as query parameters,
+should be given in accordance with the RFC 3986.</p>
+<p>Examples:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let _ </span>= Opts::from_url(<span class="string">&quot;mysql://localhost/some_db&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let _ </span>= Opts::from_url(<span class="string">&quot;mysql://[::1]/some_db&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let _ </span>= Opts::from_url(<span class="string">&quot;mysql://user:pass%20word@127.0.0.1:3307/some_db?&quot;</span>)<span class="question-mark">?</span>;</code></pre></div>
+<p>Supported URL parameters (for the meaning of each field please refer to the docs on <code>Opts</code>
+structure in the create API docs):</p>
+<ul>
+<li><code>prefer_socket: true | false</code> - defines the value of the same field in the <code>Opts</code> structure;</li>
+<li><code>tcp_keepalive_time_ms: u32</code> - defines the value (in milliseconds)
+of the <code>tcp_keepalive_time</code> field in the <code>Opts</code> structure;</li>
+<li><code>tcp_keepalive_probe_interval_secs: u32</code> - defines the value
+of the <code>tcp_keepalive_probe_interval_secs</code> field in the <code>Opts</code> structure;</li>
+<li><code>tcp_keepalive_probe_count: u32</code> - defines the value
+of the <code>tcp_keepalive_probe_count</code> field in the <code>Opts</code> structure;</li>
+<li><code>tcp_connect_timeout_ms: u64</code> - defines the value (in milliseconds)
+of the <code>tcp_connect_timeout</code> field in the <code>Opts</code> structure;</li>
+<li><code>tcp_user_timeout_ms</code> - defines the value (in milliseconds)
+of the <code>tcp_user_timeout</code> field in the <code>Opts</code> structure;</li>
+<li><code>stmt_cache_size: u32</code> - defines the value of the same field in the <code>Opts</code> structure;</li>
+<li><code>compress</code> - defines the value of the same field in the <code>Opts</code> structure.
+Supported value are:
+<ul>
+<li><code>true</code> - enables compression with the default compression level;</li>
+<li><code>fast</code> - enables compression with “fast” compression level;</li>
+<li><code>best</code> - enables compression with “best” compression level;</li>
+<li><code>1</code>..<code>9</code> - enables compression with the given compression level.</li>
+</ul>
+</li>
+<li><code>socket</code> - socket path on UNIX, or pipe name on Windows.</li>
+</ul>
+<h4 id="optsbuilder"><a href="#optsbuilder"><code>OptsBuilder</code></a></h4>
+<p>It’s a convenient builder for the <code>Opts</code> structure. It defines setters for fields
+of the <code>Opts</code> structure.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>opts = OptsBuilder::new()
+    .user(<span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>))
+    .db_name(<span class="prelude-val">Some</span>(<span class="string">&quot;bar&quot;</span>));
+<span class="kw">let _ </span>= Conn::new(opts)<span class="question-mark">?</span>;</code></pre></div>
+<h4 id="conn"><a href="#conn"><code>Conn</code></a></h4>
+<p>This structure represents an active MySql connection. It also holds statement cache
+and metadata for the last result set.</p>
+<p>Conn’s destructor will gracefully disconnect it from the server.</p>
+<h4 id="transaction"><a href="#transaction"><code>Transaction</code></a></h4>
+<p>It’s a simple wrapper on top of a routine, that starts with <code>START TRANSACTION</code>
+and ends with <code>COMMIT</code> or <code>ROLLBACK</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>tx = conn.start_transaction(TxOpts::default())<span class="question-mark">?</span>;
+tx.query_drop(<span class="string">&quot;CREATE TEMPORARY TABLE tmp (TEXT a)&quot;</span>)<span class="question-mark">?</span>;
+tx.exec_drop(<span class="string">&quot;INSERT INTO tmp (a) VALUES (?)&quot;</span>, (<span class="string">&quot;foo&quot;</span>,))<span class="question-mark">?</span>;
+<span class="kw">let </span>val: <span class="prelude-ty">Option</span>&lt;String&gt; = tx.query_first(<span class="string">&quot;SELECT a from tmp&quot;</span>)<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(val.unwrap(), <span class="string">&quot;foo&quot;</span>);
+<span class="comment">// Note, that transaction will be rolled back implicitly on Drop, if not committed.
+</span>tx.rollback();
+
+<span class="kw">let </span>val: <span class="prelude-ty">Option</span>&lt;String&gt; = conn.query_first(<span class="string">&quot;SELECT a from tmp&quot;</span>)<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(val, <span class="prelude-val">None</span>);</code></pre></div>
+<h4 id="pool"><a href="#pool"><code>Pool</code></a></h4>
+<p>It’s a reference to a connection pool, that can be cloned and shared between threads.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">use </span>std::thread::spawn;
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="kw">let </span>handles = (<span class="number">0</span>..<span class="number">4</span>).map(|i| {
+    spawn({
+        <span class="kw">let </span>pool = pool.clone();
+        <span class="kw">move </span>|| {
+            <span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+            conn.exec_first::&lt;u32, <span class="kw">_</span>, <span class="kw">_</span>&gt;(<span class="string">&quot;SELECT ? * 10&quot;</span>, (i,))
+                .map(Option::unwrap)
+        }
+    })
+});
+
+<span class="kw">let </span>result: <span class="prelude-ty">Result</span>&lt;Vec&lt;u32&gt;&gt; = handles.map(|handle| handle.join().unwrap()).collect();
+
+<span class="macro">assert_eq!</span>(result.unwrap(), <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]);</code></pre></div>
+<h4 id="statement"><a href="#statement"><code>Statement</code></a></h4>
+<p>Statement, actually, is just an identifier coupled with statement metadata, i.e an information
+about its parameters and columns. Internally the <code>Statement</code> structure also holds additional
+data required to support named parameters (see bellow).</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+
+<span class="kw">let </span>stmt = conn.prep(<span class="string">&quot;DO ?&quot;</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// The prepared statement will return no columns.
+</span><span class="macro">assert!</span>(stmt.columns().is_empty());
+
+<span class="comment">// The prepared statement have one parameter.
+</span><span class="kw">let </span>param = stmt.params().get(<span class="number">0</span>).unwrap();
+<span class="macro">assert_eq!</span>(param.schema_str(), <span class="string">&quot;&quot;</span>);
+<span class="macro">assert_eq!</span>(param.table_str(), <span class="string">&quot;&quot;</span>);
+<span class="macro">assert_eq!</span>(param.name_str(), <span class="string">&quot;?&quot;</span>);</code></pre></div>
+<h4 id="value"><a href="#value"><code>Value</code></a></h4>
+<p>This enumeration represents the raw value of a MySql cell. Library offers conversion between
+<code>Value</code> and different rust types via <code>FromValue</code> trait described below.</p>
+<h5 id="fromvalue-trait"><a href="#fromvalue-trait"><code>FromValue</code> trait</a></h5>
+<p>This trait is reexported from <strong>mysql_common</strong> create. Please refer to its
+<a href="https://docs.rs/mysql_common">crate docs</a> for the list of supported conversions.</p>
+<p>Trait offers conversion in two flavours:</p>
+<ul>
+<li>
+<p><code>from_value(Value) -&gt; T</code> - convenient, but panicking conversion.</p>
+<p>Note, that for any variant of <code>Value</code> there exist a type, that fully covers its domain,
+i.e. for any variant of <code>Value</code> there exist <code>T: FromValue</code> such that <code>from_value</code> will never
+panic. This means, that if your database schema is known, than it’s possible to write your
+application using only <code>from_value</code> with no fear of runtime panic.</p>
+</li>
+<li>
+<p><code>from_value_opt(Value) -&gt; Option&lt;T&gt;</code> - non-panicking, but less convenient conversion.</p>
+<p>This function is useful to probe conversion in cases, where source database schema
+is unknown.</p>
+</li>
+</ul>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>via_test_protocol: u32 = from_value(Value::Bytes(<span class="string">b&quot;65536&quot;</span>.to_vec()));
+<span class="kw">let </span>via_bin_protocol: u32 = from_value(Value::UInt(<span class="number">65536</span>));
+<span class="macro">assert_eq!</span>(via_test_protocol, via_bin_protocol);
+
+<span class="kw">let </span>unknown_val = <span class="comment">// ...
+
+// Maybe it is a float?
+</span><span class="kw">let </span>unknown_val = <span class="kw">match </span>from_value_opt::&lt;f64&gt;(unknown_val) {
+    <span class="prelude-val">Ok</span>(float) =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;A float value: {}&quot;</span>, float);
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+    }
+    <span class="prelude-val">Err</span>(FromValueError(unknown_val)) =&gt; unknown_val,
+};
+
+<span class="comment">// Or a string?
+</span><span class="kw">let </span>unknown_val = <span class="kw">match </span>from_value_opt::&lt;String&gt;(unknown_val) {
+    <span class="prelude-val">Ok</span>(string) =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;A string value: {}&quot;</span>, string);
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+    }
+    <span class="prelude-val">Err</span>(FromValueError(unknown_val)) =&gt; unknown_val,
+};
+
+<span class="comment">// Screw this, I&#39;ll simply match on it
+</span><span class="kw">match </span>unknown_val {
+    val @ Value::NULL =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;An empty value: {:?}&quot;</span>, from_value::&lt;<span class="prelude-ty">Option</span>&lt;u8&gt;&gt;(val))
+    },
+    val @ Value::Bytes(..) =&gt; {
+        <span class="comment">// It&#39;s non-utf8 bytes, since we already tried to convert it to String
+        </span><span class="macro">println!</span>(<span class="string">&quot;Bytes: {:?}&quot;</span>, from_value::&lt;Vec&lt;u8&gt;&gt;(val))
+    }
+    val @ Value::Int(..) =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;A signed integer: {}&quot;</span>, from_value::&lt;i64&gt;(val))
+    }
+    val @ Value::UInt(..) =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;An unsigned integer: {}&quot;</span>, from_value::&lt;u64&gt;(val))
+    }
+    Value::Float(..) =&gt; <span class="macro">unreachable!</span>(<span class="string">&quot;already tried&quot;</span>),
+    val @ Value::Double(..) =&gt; {
+        <span class="macro">println!</span>(<span class="string">&quot;A double precision float value: {}&quot;</span>, from_value::&lt;f64&gt;(val))
+    }
+    val @ Value::Date(..) =&gt; {
+        <span class="kw">use </span>time::PrimitiveDateTime;
+        <span class="macro">println!</span>(<span class="string">&quot;A date value: {}&quot;</span>, from_value::&lt;PrimitiveDateTime&gt;(val))
+    }
+    val @ Value::Time(..) =&gt; {
+        <span class="kw">use </span>std::time::Duration;
+        <span class="macro">println!</span>(<span class="string">&quot;A time value: {:?}&quot;</span>, from_value::&lt;Duration&gt;(val))
+    }
+}</code></pre></div>
+<h4 id="row"><a href="#row"><code>Row</code></a></h4>
+<p>Internally <code>Row</code> is a vector of <code>Value</code>s, that also allows indexing by a column name/offset,
+and stores row metadata. Library offers conversion between <code>Row</code> and sequences of Rust types
+via <code>FromRow</code> trait described below.</p>
+<h5 id="fromrow-trait"><a href="#fromrow-trait"><code>FromRow</code> trait</a></h5>
+<p>This trait is reexported from <strong>mysql_common</strong> create. Please refer to its
+<a href="https://docs.rs/mysql_common">crate docs</a> for the list of supported conversions.</p>
+<p>This conversion is based on the <code>FromValue</code> and so comes in two similar flavours:</p>
+<ul>
+<li><code>from_row(Row) -&gt; T</code> - same as <code>from_value</code>, but for rows;</li>
+<li><code>from_row_opt(Row) -&gt; Option&lt;T&gt;</code> - same as <code>from_value_opt</code>, but for rows.</li>
+</ul>
+<p><a href="#queryable"><code>Queryable</code></a>
+trait offers implicit conversion for rows of a query result,
+that is based on this trait.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>conn = Conn::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="comment">// Single-column row can be converted to a singular value:
+</span><span class="kw">let </span>val: <span class="prelude-ty">Option</span>&lt;String&gt; = conn.query_first(<span class="string">&quot;SELECT &#39;foo&#39;&quot;</span>)<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(val.unwrap(), <span class="string">&quot;foo&quot;</span>);
+
+<span class="comment">// Example of a mutli-column row conversion to an inferred type:
+</span><span class="kw">let </span>row = conn.query_first(<span class="string">&quot;SELECT 255, 256&quot;</span>)<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(row, <span class="prelude-val">Some</span>((<span class="number">255u8</span>, <span class="number">256u16</span>)));
+
+<span class="comment">// The FromRow trait does not support to-tuple conversion for rows with more than 12 columns,
+// but you can do this by hand using row indexing or `Row::take` method:
+</span><span class="kw">let </span>row: Row = conn.exec_first(<span class="string">&quot;select 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12&quot;</span>, ())<span class="question-mark">?</span>.unwrap();
+<span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..row.len() {
+    <span class="macro">assert_eq!</span>(row[i], Value::Int(i <span class="kw">as </span>i64));
+}
+
+<span class="comment">// Another way to handle wide rows is to use HList (requires `mysql_common/frunk` feature)
+</span><span class="kw">use </span>frunk::{HList, hlist, hlist_pat};
+<span class="kw">let </span>query = <span class="string">&quot;select 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15&quot;</span>;
+<span class="kw">type </span>RowType = <span class="macro">HList!</span>(u8, u16, u32, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
+<span class="kw">let </span>first_three_columns = conn.query_map(query, |row: RowType| {
+    <span class="comment">// do something with the row (see the `frunk` crate documentation)
+    </span><span class="kw">let </span><span class="macro">hlist_pat!</span>[c1, c2, c3, ...] = row;
+    (c1, c2, c3)
+});
+<span class="macro">assert_eq!</span>(first_three_columns.unwrap(), <span class="macro">vec!</span>[(<span class="number">0_u8</span>, <span class="number">1_u16</span>, <span class="number">2_u32</span>)]);
+
+<span class="comment">// Some unknown row
+</span><span class="kw">let </span>row: Row = conn.query_first(
+    <span class="comment">// ...
+</span>)<span class="question-mark">?</span>.unwrap();
+
+<span class="kw">for </span>column <span class="kw">in </span>row.columns_ref() {
+    <span class="comment">// Cells in a row can be indexed by numeric index or by column name
+    </span><span class="kw">let </span>column_value = <span class="kw-2">&amp;</span>row[column.name_str().as_ref()];
+
+    <span class="macro">println!</span>(
+        <span class="string">&quot;Column {} of type {:?} with value {:?}&quot;</span>,
+        column.name_str(),
+        column.column_type(),
+        column_value,
+    );
+}</code></pre></div>
+<h4 id="params"><a href="#params"><code>Params</code></a></h4>
+<p>Represents parameters of a prepared statement, but this type won’t appear directly in your code
+because binary protocol API will ask for <code>T: Into&lt;Params&gt;</code>, where <code>Into&lt;Params&gt;</code> is implemented:</p>
+<ul>
+<li>
+<p>for tuples of <code>Into&lt;Value&gt;</code> types up to arity 12;</p>
+<p><strong>Note:</strong> singular tuple requires extra comma, e.g. <code>(&quot;foo&quot;,)</code>;</p>
+</li>
+<li>
+<p>for <code>IntoIterator&lt;Item: Into&lt;Value&gt;&gt;</code> for cases, when your statement takes more
+than 12 parameters;</p>
+</li>
+<li>
+<p>for named parameters representation (the value of the <code>params!</code> macro, described below).</p>
+</li>
+</ul>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>conn = Conn::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="comment">// Singular tuple requires extra comma:
+</span><span class="kw">let </span>row: <span class="prelude-ty">Option</span>&lt;u8&gt; = conn.exec_first(<span class="string">&quot;SELECT ?&quot;</span>, (<span class="number">0</span>,))<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(row.unwrap(), <span class="number">0</span>);
+
+<span class="comment">// More than 12 parameters:
+</span><span class="kw">let </span>row: <span class="prelude-ty">Option</span>&lt;u8&gt; = conn.exec_first(
+    <span class="string">&quot;SELECT CONVERT(? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ? + ?, UNSIGNED)&quot;</span>,
+    (<span class="number">0</span>..<span class="number">16</span>).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;(),
+)<span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(row.unwrap(), <span class="number">120</span>);</code></pre></div>
+<p><strong>Note:</strong> Please refer to the <a href="https://docs.rs/mysql_common"><strong>mysql_common</strong> crate docs</a> for the list
+of types, that implements <code>Into&lt;Value&gt;</code>.</p>
+<h5 id="serialized-deserialized"><a href="#serialized-deserialized"><code>Serialized</code>, <code>Deserialized</code></a></h5>
+<p>Wrapper structures for cases, when you need to provide a value for a JSON cell,
+or when you need to parse JSON cell as a struct.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="doccomment">/// Serializable structure.
+</span><span class="attr">#[derive(Debug, PartialEq, Serialize, Deserialize)]
+</span><span class="kw">struct </span>Example {
+    foo: u32,
+}
+
+<span class="comment">// Value::from for Serialized will emit json string.
+</span><span class="kw">let </span>value = Value::from(Serialized(Example { foo: <span class="number">42 </span>}));
+<span class="macro">assert_eq!</span>(value, Value::Bytes(<span class="string">br#&quot;{&quot;foo&quot;:42}&quot;#</span>.to_vec()));
+
+<span class="comment">// from_value for Deserialized will parse json string.
+</span><span class="kw">let </span>structure: Deserialized&lt;Example&gt; = from_value(value);
+<span class="macro">assert_eq!</span>(structure, Deserialized(Example { foo: <span class="number">42 </span>}));</code></pre></div>
+<h4 id="queryresult"><a href="#queryresult"><code>QueryResult</code></a></h4>
+<p>It’s an iterator over rows of a query result with support of multi-result sets. It’s intended
+for cases when you need full control during result set iteration. For other cases
+<a href="#queryable"><code>Queryable</code></a> provides a set of methods that will immediately consume
+the first result set and drop everything else.</p>
+<p>This iterator is lazy so it won’t read the result from server until you iterate over it.
+MySql protocol is strictly sequential, so <code>Conn</code> will be mutably borrowed until the result
+is fully consumed (please also look at <a href="struct.QueryResult.html#method.iter" title="method mysql::QueryResult::iter"><code>QueryResult::iter</code></a> docs).</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>conn = Conn::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="comment">// This query will emit two result sets.
+</span><span class="kw">let </span><span class="kw-2">mut </span>result = conn.query_iter(<span class="string">&quot;SELECT 1, 2; SELECT 3, 3.14;&quot;</span>)<span class="question-mark">?</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>sets = <span class="number">0</span>;
+<span class="kw">while let </span><span class="prelude-val">Some</span>(result_set) = result.iter() {
+    sets += <span class="number">1</span>;
+
+    <span class="macro">println!</span>(<span class="string">&quot;Result set columns: {:?}&quot;</span>, result_set.columns());
+    <span class="macro">println!</span>(
+        <span class="string">&quot;Result set meta: {}, {:?}, {} {}&quot;</span>,
+        result_set.affected_rows(),
+        result_set.last_insert_id(),
+        result_set.warnings(),
+        result_set.info_str(),
+    );
+
+    <span class="kw">for </span>row <span class="kw">in </span>result_set {
+        <span class="kw">match </span>sets {
+            <span class="number">1 </span>=&gt; {
+                <span class="comment">// First result set will contain two numbers.
+                </span><span class="macro">assert_eq!</span>((<span class="number">1_u8</span>, <span class="number">2_u8</span>), from_row(row<span class="question-mark">?</span>));
+            }
+            <span class="number">2 </span>=&gt; {
+                <span class="comment">// Second result set will contain a number and a float.
+                </span><span class="macro">assert_eq!</span>((<span class="number">3_u8</span>, <span class="number">3.14</span>), from_row(row<span class="question-mark">?</span>));
+            }
+            <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+        }
+    }
+}
+
+<span class="macro">assert_eq!</span>(sets, <span class="number">2</span>);</code></pre></div>
+<h3 id="text-protocol"><a href="#text-protocol">Text protocol</a></h3>
+<p>MySql text protocol is implemented in the set of <code>Queryable::query*</code> methods. It’s useful when your
+query doesn’t have parameters.</p>
+<p><strong>Note:</strong> All values of a text protocol result set will be encoded as strings by the server,
+so <code>from_value</code> conversion may lead to additional parsing costs.</p>
+<p>Examples:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+<span class="kw">let </span>val = pool.get_conn()<span class="question-mark">?</span>.query_first(<span class="string">&quot;SELECT POW(2, 16)&quot;</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// Text protocol returns bytes even though the result of POW
+// is actually a floating point number.
+</span><span class="macro">assert_eq!</span>(val, <span class="prelude-val">Some</span>(Value::Bytes(<span class="string">&quot;65536&quot;</span>.as_bytes().to_vec())));</code></pre></div>
+<h4 id="the-textquery-trait"><a href="#the-textquery-trait">The <code>TextQuery</code> trait.</a></h4>
+<p>The <code>TextQuery</code> trait covers the set of <code>Queryable::query*</code> methods from the perspective
+of a query, i.e. <code>TextQuery</code> is something, that can be performed if suitable connection
+is given. Suitable connections are:</p>
+<ul>
+<li><code>&amp;Pool</code></li>
+<li><code>Conn</code></li>
+<li><code>PooledConn</code></li>
+<li><code>&amp;mut Conn</code></li>
+<li><code>&amp;mut PooledConn</code></li>
+<li><code>&amp;mut Transaction</code></li>
+</ul>
+<p>The unique characteristic of this trait, is that you can give away the connection
+and thus produce <code>QueryResult</code> that satisfies <code>'static</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">fn </span>iter(pool: <span class="kw-2">&amp;</span>Pool) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Iterator&lt;Item=<span class="prelude-ty">Result</span>&lt;u32&gt;&gt;&gt; {
+    <span class="kw">let </span>result = <span class="string">&quot;SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3&quot;</span>.run(pool)<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(result.map(|row| row.map(from_row)))
+}
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="kw">let </span>it = iter(<span class="kw-2">&amp;</span>pool)<span class="question-mark">?</span>;
+
+<span class="macro">assert_eq!</span>(it.collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;u32&gt;&gt;&gt;()<span class="question-mark">?</span>, <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</code></pre></div>
+<h3 id="binary-protocol-and-prepared-statements"><a href="#binary-protocol-and-prepared-statements">Binary protocol and prepared statements.</a></h3>
+<p>MySql binary protocol is implemented in <code>prep</code>, <code>close</code> and the set of <code>exec*</code> methods,
+defined on the <a href="#queryable"><code>Queryable</code></a> trait. Prepared statements is the only way to
+pass rust value to the MySql server. MySql uses <code>?</code> symbol as a parameter placeholder
+and it’s only possible to use parameters where a single MySql value is expected.
+For example:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+<span class="kw">let </span>val = pool.get_conn()<span class="question-mark">?</span>.exec_first(<span class="string">&quot;SELECT POW(?, ?)&quot;</span>, (<span class="number">2</span>, <span class="number">16</span>))<span class="question-mark">?</span>;
+
+<span class="macro">assert_eq!</span>(val, <span class="prelude-val">Some</span>(Value::Double(<span class="number">65536.0</span>)));</code></pre></div>
+<h4 id="statements"><a href="#statements">Statements</a></h4>
+<p>In MySql each prepared statement belongs to a particular connection and can’t be executed
+on another connection. Trying to do so will lead to an error. The driver won’t tie statement
+to its connection in any way, but one can look on to the connection id, contained
+in the <code>Statement</code> structure.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>conn_1 = pool.get_conn()<span class="question-mark">?</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>conn_2 = pool.get_conn()<span class="question-mark">?</span>;
+
+<span class="kw">let </span>stmt_1 = conn_1.prep(<span class="string">&quot;SELECT ?&quot;</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// stmt_1 is for the conn_1, ..
+</span><span class="macro">assert!</span>(stmt_1.connection_id() == conn_1.connection_id());
+<span class="macro">assert!</span>(stmt_1.connection_id() != conn_2.connection_id());
+
+<span class="comment">// .. so stmt_1 will execute only on conn_1
+</span><span class="macro">assert!</span>(conn_1.exec_drop(<span class="kw-2">&amp;</span>stmt_1, (<span class="string">&quot;foo&quot;</span>,)).is_ok());
+<span class="macro">assert!</span>(conn_2.exec_drop(<span class="kw-2">&amp;</span>stmt_1, (<span class="string">&quot;foo&quot;</span>,)).is_err());</code></pre></div>
+<h4 id="statement-cache"><a href="#statement-cache">Statement cache</a></h4>
+<p><code>Conn</code> will manage the cache of prepared statements on the client side, so subsequent calls
+to prepare with the same statement won’t lead to a client-server roundtrip. Cache size
+for each connection is determined by the <code>stmt_cache_size</code> field of the <code>Opts</code> structure.
+Statements, that are out of this boundary will be closed in LRU order.</p>
+<p>Statement cache is completely disabled if <code>stmt_cache_size</code> is zero.</p>
+<p><strong>Caveats:</strong></p>
+<ul>
+<li>
+<p>disabled statement cache means, that you have to close statements yourself using
+<code>Conn::close</code>, or they’ll exhaust server limits/resources;</p>
+</li>
+<li>
+<p>you should be aware of the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_prepared_stmt_count"><code>max_prepared_stmt_count</code></a>
+option of the MySql server. If the number of active connections times the value
+of <code>stmt_cache_size</code> is greater, than you could receive an error while prepareing
+another statement.</p>
+</li>
+</ul>
+<h4 id="named-parameters"><a href="#named-parameters">Named parameters</a></h4>
+<p>MySql itself doesn’t have named parameters support, so it’s implemented on the client side.
+One should use <code>:name</code> as a placeholder syntax for a named parameter. Named parameters uses
+the following naming convention:</p>
+<ul>
+<li>parameter name must start with either <code>_</code> or <code>a..z</code></li>
+<li>parameter name may continue with <code>_</code>, <code>a..z</code> and <code>0..9</code></li>
+</ul>
+<p>Named parameters may be repeated within the statement, e.g <code>SELECT :foo, :foo</code> will require
+a single named parameter <code>foo</code> that will be repeated on the corresponding positions during
+statement execution.</p>
+<p>One should use the <code>params!</code> macro to build parameters for execution.</p>
+<p><strong>Note:</strong> Positional and named parameters can’t be mixed within the single statement.</p>
+<p>Examples:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+<span class="kw">let </span>stmt = conn.prep(<span class="string">&quot;SELECT :foo, :bar, :foo&quot;</span>)<span class="question-mark">?</span>;
+
+<span class="kw">let </span>foo = <span class="number">42</span>;
+
+<span class="kw">let </span>val_13 = conn.exec_first(<span class="kw-2">&amp;</span>stmt, <span class="macro">params! </span>{ <span class="string">&quot;foo&quot; </span>=&gt; <span class="number">13</span>, <span class="string">&quot;bar&quot; </span>=&gt; foo })<span class="question-mark">?</span>.unwrap();
+<span class="comment">// Short syntax is available when param name is the same as variable name:
+</span><span class="kw">let </span>val_42 = conn.exec_first(<span class="kw-2">&amp;</span>stmt, <span class="macro">params! </span>{ foo, <span class="string">&quot;bar&quot; </span>=&gt; <span class="number">13 </span>})<span class="question-mark">?</span>.unwrap();
+
+<span class="macro">assert_eq!</span>((foo, <span class="number">13</span>, foo), val_42);
+<span class="macro">assert_eq!</span>((<span class="number">13</span>, foo, <span class="number">13</span>), val_13);</code></pre></div>
+<h4 id="buffer-pool"><a href="#buffer-pool">Buffer pool</a></h4>
+<p>Crate uses the global lock-free buffer pool for the purpose of IO and data serialization/deserialization,
+that helps to avoid allocations for basic scenarios. You can control it’s characteristics using
+the following environment variables:</p>
+<ul>
+<li>
+<p><code>RUST_MYSQL_BUFFER_POOL_CAP</code> (defaults to 128) – controls the pool capacity. Dropped buffer will
+be immediately deallocated if the pool is full. Set it to <code>0</code> to disable the pool at runtime.</p>
+</li>
+<li>
+<p><code>RUST_MYSQL_BUFFER_SIZE_CAP</code> (defaults to 4MiB) – controls the maximum capacity of a buffer
+stored in the pool. Capacity of a dropped buffer will be shrunk to this value when buffer
+is returned to the pool.</p>
+</li>
+</ul>
+<p>To completely disable the pool (say you are using jemalloc) please remove the <code>buffer-pool</code> feature
+from the set of default crate features (see the <a href="#crate-features">Crate Features</a> section).</p>
+<h4 id="binquery-and-batchquery-traits"><a href="#binquery-and-batchquery-traits"><code>BinQuery</code> and <code>BatchQuery</code> traits.</a></h4>
+<p><code>BinQuery</code> and <code>BatchQuery</code> traits covers the set of <code>Queryable::exec*</code> methods from
+the perspective of a query, i.e. <code>BinQuery</code> is something, that can be performed if suitable
+connection is given (see <a href="#the-textquery-trat"><code>TextQuery</code></a> section for the list
+of suitable connections).</p>
+<p>As with the <a href="#the-textquery-trait"><code>TextQuery</code></a> you can give away the connection and acquire
+<code>QueryResult</code> that satisfies <code>'static</code>.</p>
+<p><code>BinQuery</code> is for prepared statements, and prepared statements requires a set of parameters,
+so <code>BinQuery</code> is implemented for <code>QueryWithParams</code> structure, that can be acquired, using
+<code>WithParams</code> trait.</p>
+<p>Example:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+
+<span class="kw">let </span>result: <span class="prelude-ty">Option</span>&lt;(u8, u8, u8)&gt; = <span class="string">&quot;SELECT ?, ?, ?&quot;
+    </span>.with((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// &lt;- WithParams::with will construct an instance of QueryWithParams
+    </span>.first(<span class="kw-2">&amp;</span>pool)<span class="question-mark">?</span>;  <span class="comment">// &lt;- QueryWithParams is executed on the given pool
+
+</span><span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</code></pre></div>
+<p>The <code>BatchQuery</code> trait is a helper for batch statement execution. It’s implemented for
+<code>QueryWithParams</code> where parameters is an iterator over parameters:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mysql::<span class="kw-2">*</span>;
+<span class="kw">use </span>mysql::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>pool = Pool::new(get_opts())<span class="question-mark">?</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>conn = pool.get_conn()<span class="question-mark">?</span>;
+
+<span class="string">&quot;CREATE TEMPORARY TABLE batch (x INT)&quot;</span>.run(<span class="kw-2">&amp;mut </span>conn)<span class="question-mark">?</span>;
+<span class="string">&quot;INSERT INTO batch (x) VALUES (?)&quot;
+    </span>.with((<span class="number">0</span>..<span class="number">3</span>).map(|x| (x,))) <span class="comment">// &lt;- QueryWithParams constructed with an iterator
+    </span>.batch(<span class="kw-2">&amp;mut </span>conn)<span class="question-mark">?</span>;         <span class="comment">// &lt;- batch execution is preformed here
+
+</span><span class="kw">let </span>result: Vec&lt;u8&gt; = <span class="string">&quot;SELECT x FROM batch&quot;</span>.fetch(conn)<span class="question-mark">?</span>;
+
+<span class="macro">assert_eq!</span>(result, <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]);</code></pre></div>
+<h4 id="queryable"><a href="#queryable"><code>Queryable</code></a></h4>
+<p>The <code>Queryable</code> trait defines common methods for <code>Conn</code>, <code>PooledConn</code> and <code>Transaction</code>.
+The set of basic methods consts of:</p>
+<ul>
+<li><code>query_iter</code> - basic methods to execute text query and get <code>QueryResult</code>;</li>
+<li><code>prep</code> - basic method to prepare a statement;</li>
+<li><code>exec_iter</code> - basic method to execute statement and get <code>QueryResult</code>;</li>
+<li><code>close</code> - basic method to close the statement;</li>
+</ul>
+<p>The trait also defines the set of helper methods, that is based on basic methods.
+These methods will consume only the first result set, other result sets will be dropped:</p>
+<ul>
+<li><code>{query|exec}</code> - to collect the result into a <code>Vec&lt;T: FromRow&gt;</code>;</li>
+<li><code>{query|exec}_first</code> - to get the first <code>T: FromRow</code>, if any;</li>
+<li><code>{query|exec}_map</code> - to map each <code>T: FromRow</code> to some <code>U</code>;</li>
+<li><code>{query|exec}_fold</code> - to fold the set of <code>T: FromRow</code> to a single value;</li>
+<li><code>{query|exec}_drop</code> - to immediately drop the result.</li>
+</ul>
+<p>The trait also defines the <code>exec_batch</code> function, which is a helper for batch statement
+execution.</p>
+<h3 id="ssl-support"><a href="#ssl-support">SSL Support</a></h3>
+<p>SSL support comes in two flavors:</p>
+<ol>
+<li>
+<p>Based on <strong>native-tls</strong> – this is the default option, that usually works without pitfalls
+(see the <code>native-tls</code> crate feature).</p>
+</li>
+<li>
+<p>Based on <strong>rustls</strong> – TLS backend written in Rust. Please use the <code>rustls-tls</code> crate feature
+to enable it (see the <a href="#crate-features">Crate Features</a> section).</p>
+<p>Please also note a few things about <strong>rustls</strong>:</p>
+<ul>
+<li>it will fail if you’ll try to connect to the server by its IP address, hostname is required;</li>
+<li>it, most likely, won’t work on windows, at least with default server certs, generated by the
+MySql installer.</li>
+</ul>
+</li>
+</ol>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2><ul class="item-table"><li><div class="item-name"><code>pub extern crate <a class="mod" href="../serde/index.html" title="mod serde">serde</a>;</code></div></li><li><div class="item-name"><code>pub extern crate <a class="mod" href="../serde_json/index.html" title="mod serde_json">serde_json</a>;</code></div></li></ul><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="binlog/index.html" title="mod mysql::binlog">binlog</a></div></li><li><div class="item-name"><a class="mod" href="consts/index.html" title="mod mysql::consts">consts</a></div></li><li><div class="item-name"><a class="mod" href="error/index.html" title="mod mysql::error">error</a></div></li><li><div class="item-name"><a class="mod" href="params/index.html" title="mod mysql::params">params</a></div></li><li><div class="item-name"><a class="mod" href="prelude/index.html" title="mod mysql::prelude">prelude</a></div></li><li><div class="item-name"><a class="mod" href="session_state_change/index.html" title="mod mysql::session_state_change">session_state_change</a></div></li></ul><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2><ul class="item-table"><li><div class="item-name"><a class="macro" href="macro.params.html" title="macro mysql::params">params</a></div><div class="desc docblock-short">This macro is a convenient way to pass named parameters to a statement.</div></li></ul><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Binary.html" title="struct mysql::Binary">Binary</a></div><div class="desc docblock-short">Binary protocol marker.</div></li><li><div class="item-name"><a class="struct" href="struct.BinlogDumpFlags.html" title="struct mysql::BinlogDumpFlags">BinlogDumpFlags</a></div><div class="desc docblock-short">Empty flags of a <code>LoadEvent</code>.</div></li><li><div class="item-name"><a class="struct" href="struct.BinlogRequest.html" title="struct mysql::BinlogRequest">BinlogRequest</a></div><div class="desc docblock-short">Binlog request representation. Please consult MySql documentation.</div></li><li><div class="item-name"><a class="struct" href="struct.BinlogStream.html" title="struct mysql::BinlogStream">BinlogStream</a></div><div class="desc docblock-short">Binlog event stream.</div></li><li><div class="item-name"><a class="struct" href="struct.ClientIdentity.html" title="struct mysql::ClientIdentity">ClientIdentity</a></div></li><li><div class="item-name"><a class="struct" href="struct.Column.html" title="struct mysql::Column">Column</a></div><div class="desc docblock-short">Represents MySql Column (column packet).</div></li><li><div class="item-name"><a class="struct" href="struct.Compression.html" title="struct mysql::Compression">Compression</a></div><div class="desc docblock-short">When compressing data, the compression level can be specified by a value in
+this enum.</div></li><li><div class="item-name"><a class="struct" href="struct.Conn.html" title="struct mysql::Conn">Conn</a></div><div class="desc docblock-short">Mysql connection.</div></li><li><div class="item-name"><a class="struct" href="struct.Deserialized.html" title="struct mysql::Deserialized">Deserialized</a></div><div class="desc docblock-short">Use it to parse <code>T: Deserialize</code> from <code>Value</code>.</div></li><li><div class="item-name"><a class="struct" href="struct.FromRowError.html" title="struct mysql::FromRowError">FromRowError</a></div><div class="desc docblock-short"><code>FromRow</code> conversion error.</div></li><li><div class="item-name"><a class="struct" href="struct.FromValueError.html" title="struct mysql::FromValueError">FromValueError</a></div><div class="desc docblock-short"><code>FromValue</code> conversion error.</div></li><li><div class="item-name"><a class="struct" href="struct.LocalInfile.html" title="struct mysql::LocalInfile">LocalInfile</a></div><div class="desc docblock-short">Local in-file stream.
+The callback will be passed a reference to this stream, which it
+should use to write the contents of the requested file.
+See <a href="struct.LocalInfileHandler.html">LocalInfileHandler</a> documentation for example.</div></li><li><div class="item-name"><a class="struct" href="struct.LocalInfileHandler.html" title="struct mysql::LocalInfileHandler">LocalInfileHandler</a></div><div class="desc docblock-short">Callback to handle requests for local files.
+Consult <a href="https://dev.mysql.com/doc/refman/5.7/en/load-data.html">Mysql documentation</a> for the
+format of local infile data.</div></li><li><div class="item-name"><a class="struct" href="struct.MySqlError.html" title="struct mysql::MySqlError">MySqlError</a></div></li><li><div class="item-name"><a class="struct" href="struct.Opts.html" title="struct mysql::Opts">Opts</a></div><div class="desc docblock-short">Mysql connection options.</div></li><li><div class="item-name"><a class="struct" href="struct.OptsBuilder.html" title="struct mysql::OptsBuilder">OptsBuilder</a></div><div class="desc docblock-short">Provides a way to build <a href="struct.Opts.html"><code>Opts</code></a>.</div></li><li><div class="item-name"><a class="struct" href="struct.Pool.html" title="struct mysql::Pool">Pool</a></div><div class="desc docblock-short"><code>Pool</code> serves to provide you with a <a href="struct.PooledConn.html"><code>PooledConn</code></a>’s.
+However you can prepare statements directly on <code>Pool</code> without
+invoking <a href="struct.Pool.html#method.get_conn"><code>Pool::get_conn</code></a>.</div></li><li><div class="item-name"><a class="struct" href="struct.PooledConn.html" title="struct mysql::PooledConn">PooledConn</a></div><div class="desc docblock-short">Pooled mysql connection which will return to the pool on <code>drop</code>.</div></li><li><div class="item-name"><a class="struct" href="struct.QueryResult.html" title="struct mysql::QueryResult">QueryResult</a></div><div class="desc docblock-short">Response to a query or statement execution.</div></li><li><div class="item-name"><a class="struct" href="struct.QueryWithParams.html" title="struct mysql::QueryWithParams">QueryWithParams</a></div><div class="desc docblock-short">Representation of a prepared statement query.</div></li><li><div class="item-name"><a class="struct" href="struct.ResultSet.html" title="struct mysql::ResultSet">ResultSet</a></div></li><li><div class="item-name"><a class="struct" href="struct.Row.html" title="struct mysql::Row">Row</a></div><div class="desc docblock-short">Client side representation of a MySql row.</div></li><li><div class="item-name"><a class="struct" href="struct.Serialized.html" title="struct mysql::Serialized">Serialized</a></div><div class="desc docblock-short">Use it to pass <code>T: Serialize</code> as JSON to a prepared statement.</div></li><li><div class="item-name"><a class="struct" href="struct.SessionStateInfo.html" title="struct mysql::SessionStateInfo">SessionStateInfo</a></div><div class="desc docblock-short">Represents change in session state (part of MySql’s Ok packet).</div></li><li><div class="item-name"><a class="struct" href="struct.SetColumns.html" title="struct mysql::SetColumns">SetColumns</a></div></li><li><div class="item-name"><a class="struct" href="struct.SslOpts.html" title="struct mysql::SslOpts">SslOpts</a></div><div class="desc docblock-short">Ssl Options.</div></li><li><div class="item-name"><a class="struct" href="struct.Statement.html" title="struct mysql::Statement">Statement</a></div></li><li><div class="item-name"><a class="struct" href="struct.Text.html" title="struct mysql::Text">Text</a></div><div class="desc docblock-short">Text protocol marker.</div></li><li><div class="item-name"><a class="struct" href="struct.Transaction.html" title="struct mysql::Transaction">Transaction</a></div></li><li><div class="item-name"><a class="struct" href="struct.TxOpts.html" title="struct mysql::TxOpts">TxOpts</a></div><div class="desc docblock-short">MySql transaction options.</div></li></ul><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.AccessMode.html" title="enum mysql::AccessMode">AccessMode</a></div><div class="desc docblock-short">MySql transaction access mode.</div></li><li><div class="item-name"><a class="enum" href="enum.DriverError.html" title="enum mysql::DriverError">DriverError</a></div></li><li><div class="item-name"><a class="enum" href="enum.Error.html" title="enum mysql::Error">Error</a></div></li><li><div class="item-name"><a class="enum" href="enum.IsolationLevel.html" title="enum mysql::IsolationLevel">IsolationLevel</a></div><div class="desc docblock-short">MySql transaction isolation level.</div></li><li><div class="item-name"><a class="enum" href="enum.Params.html" title="enum mysql::Params">Params</a></div><div class="desc docblock-short">Representations of parameters of a prepared statement.</div></li><li><div class="item-name"><a class="enum" href="enum.ServerError.html" title="enum mysql::ServerError">ServerError</a></div><div class="desc docblock-short">Server error codes (u16)</div></li><li><div class="item-name"><a class="enum" href="enum.UrlError.html" title="enum mysql::UrlError">UrlError</a></div></li><li><div class="item-name"><a class="enum" href="enum.Value.html" title="enum mysql::Value">Value</a></div><div class="desc docblock-short">Client side representation of a value of MySql column.</div></li></ul><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.DEFAULT_STMT_CACHE_SIZE.html" title="constant mysql::DEFAULT_STMT_CACHE_SIZE">DEFAULT_STMT_CACHE_SIZE</a></div><div class="desc docblock-short">Default value for client side per-connection statement cache.</div></li></ul><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.from_row.html" title="fn mysql::from_row">from_row</a></div><div class="desc docblock-short">Will <em>panic</em> if could not convert <code>row</code> to <code>T</code>.</div></li><li><div class="item-name"><a class="fn" href="fn.from_row_opt.html" title="fn mysql::from_row_opt">from_row_opt</a></div><div class="desc docblock-short">Will return <code>Err(row)</code> if could not convert <code>row</code> to <code>T</code></div></li><li><div class="item-name"><a class="fn" href="fn.from_value.html" title="fn mysql::from_value">from_value</a></div><div class="desc docblock-short">Will panic if could not convert <code>v</code> to <code>T</code></div></li><li><div class="item-name"><a class="fn" href="fn.from_value_opt.html" title="fn mysql::from_value_opt">from_value_opt</a></div><div class="desc docblock-short">Will return <code>Err(FromValueError(v))</code> if could not convert <code>v</code> to <code>T</code></div></li></ul><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.Result.html" title="type mysql::Result">Result</a></div></li></ul></section></div></main><div id="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="mysql" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0 (84c898d65 2023-04-16)" data-search-js="search-8a59a8356673ec1f.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DriverError","Error","ServerError","UrlError"],"mod":["tls"],"struct":["MySqlError"],"type":["Result"]};

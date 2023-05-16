@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Target"],"macro":["embed_migrations"],"mod":["config","error"],"struct":["Error","Migration","Report","Runner"]};

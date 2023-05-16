@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A crate for validate user permissions in `actix-web`."><title>actix_web_grants - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" disabled href="../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" disabled href="../static.files/ayu-be46fdc453a55015.css"><script src="../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-98a684e84ae5b08b.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../actix_web_grants/index.html"><img src="https://raw.githubusercontent.com/DDtKey/actix-web-grants/main/logo.png" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../actix_web_grants/index.html">
+                <img src="https://raw.githubusercontent.com/DDtKey/actix-web-grants/main/logo.png" alt="logo"></a><h2 class="location"><a href="#">Crate actix_web_grants</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 3.0.1</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">actix_web_grants</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/actix_web_grants/lib.rs.html#1-83">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A crate for validate user permissions in <code>actix-web</code>.</p>
+<p>For built-in configure see: <a href="struct.GrantsMiddleware.html" title="struct actix_web_grants::GrantsMiddleware"><code>GrantsMiddleware</code></a>.</p>
+<p>To check user access to specific services, you can use: <a href="proc_macro/index.html" title="mod actix_web_grants::proc_macro"><code>proc-macro</code></a> and <a href="struct.PermissionGuard.html" title="struct actix_web_grants::PermissionGuard"><code>PermissionGuard</code></a> or manual.</p>
+<p>The library can also be integrated with third-party solutions (like <a href="https://docs.rs/actix-web-httpauth"><code>httpauth</code></a>), see <a href="permissions/index.html" title="mod actix_web_grants::permissions"><code>permissions</code></a> module.</p>
+<p>You can find more <a href="https://github.com/DDtKey/actix-web-grants/tree/main/examples"><code>examples</code></a> in the git repository.</p>
+<h2 id="actix-web-grants"><a href="#actix-web-grants">actix-web-grants</a></h2><p align="center">
+    <img alt="actix-web-grants" src="https://github.com/DDtKey/actix-web-grants/raw/main/logo.png">
+</p>
+<blockquote>
+<p>Extension for <code>actix-web</code> to validate user permissions.</p>
+</blockquote>
+<p><a href="https://github.com/DDtKey/actix-web-grants/actions"><img src="https://github.com/DDtKey/actix-web-grants/workflows/CI/badge.svg" alt="CI" /></a>
+<a href="https://crates.io/crates/actix-web-grants"><img src="https://img.shields.io/crates/d/actix-web-grants" alt="Crates.io Downloads Badge" /></a>
+<a href="https://crates.io/crates/actix-web-grants"><img src="https://img.shields.io/crates/v/actix-web-grants" alt="crates.io" /></a>
+<a href="https://docs.rs/actix-web-grants"><img src="https://docs.rs/actix-web-grants/badge.svg" alt="Documentation" /></a>
+<a href="https://deps.rs/repo/github/DDtKey/actix-web-grants"><img src="https://deps.rs/repo/github/DDtKey/actix-web-grants/status.svg" alt="dependency status" /></a>
+<img src="https://img.shields.io/crates/l/actix-web-grants" alt="Apache 2.0 or MIT licensed" /></p>
+<p>To check user access to specific services, you can use built-in <code>proc-macro</code>, <code>PermissionGuard</code> or manual.</p>
+<p>The library can also be integrated with third-party solutions (like <a href="https://github.com/DDtKey/actix-web-grants/blob/main/examples/jwt-httpauth"><code>actix-web-httpauth</code></a>).</p>
+<h3 id="how-to-use"><a href="#how-to-use">How to use</a></h3>
+<ol>
+<li>Declare your own <a href="./src/permissions/extractors.rs">permission extractor</a></li>
+</ol>
+<p>The easiest way is to declare a function with the following signature (trait is already implemented for such Fn):</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web::{dev::ServiceRequest, Error};
+
+<span class="comment">// You can use custom type instead of String
+</span><span class="kw">async fn </span>extract(req: <span class="kw-2">&amp;</span>ServiceRequest) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;String&gt;, Error&gt;</code></pre></div>
+<ol start="2">
+<li>Add middleware to your application using the extractor defined in step 1</li>
+</ol>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>App::new()
+    .wrap(GrantsMiddleware::with_extractor(extract))</code></pre></div>
+<blockquote>
+<p>Steps 1 and 2 can be replaced by custom middleware or integration with another libraries. Take a look at an <a href="./examples/jwt-httpauth/src/main.rs">jwt-httpauth example</a></p>
+</blockquote>
+<ol start="3">
+<li>Protect your endpoints in any convenient way from the examples below:</li>
+</ol>
+<h4 id="example-of-proc-macro-way-protection"><a href="#example-of-proc-macro-way-protection">Example of <code>proc-macro</code> way protection</a></h4>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web_grants::proc_macro::{has_permissions};
+
+<span class="attr">#[get(<span class="string">&quot;/secure&quot;</span>)]
+#[has_permissions(<span class="string">&quot;OP_READ_SECURED_INFO&quot;</span>)]
+</span><span class="kw">async fn </span>macro_secured() -&gt; HttpResponse {
+    HttpResponse::Ok().body(<span class="string">&quot;ADMIN_RESPONSE&quot;</span>)
+}</code></pre></div>
+<details>
+<summary> <b><i> Example of ABAC-like protection and custom permission type </i></b></summary>
+<br/>
+<p>Here is an example using the <code>type</code> and <code>secure</code> attributes. But these are independent features.</p>
+<p><code>secure</code> allows you to include some checks in the macro based on function params.</p>
+<p><code>type</code> allows you to use a custom type for the roles and permissions (then the middleware needs to be configured). 
+Take a look at an <a href="./examples/enum-role/src/main.rs">enum-role example</a></p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web_grants::proc_macro::{has_role};
+<span class="kw">use </span>enums::Role::{<span class="self">self</span>, ADMIN};
+<span class="kw">use </span>dto::User;
+
+<span class="attr">#[get(<span class="string">&quot;/info/{user_id}&quot;</span>)]
+#[has_role(<span class="string">&quot;ADMIN&quot;</span>, <span class="kw">type </span>= <span class="string">&quot;Role&quot;</span>, secure = <span class="string">&quot;user_id.into_inner() == user.id&quot;</span>)]
+</span><span class="kw">async fn </span>macro_secured(user_id: web::Path&lt;i32&gt;, user: web::Data&lt;User&gt;) -&gt; HttpResponse {
+    HttpResponse::Ok().body(<span class="string">&quot;some secured response&quot;</span>)
+}</code></pre></div>
+</details>  
+<h4 id="example-of-guard-way-protection"><a href="#example-of-guard-way-protection">Example of <code>Guard</code> way protection</a></h4>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web_grants::{PermissionGuard, GrantsMiddleware};
+
+App::new()
+    .wrap(GrantsMiddleware::with_extractor(extract))
+    .service(web::resource(<span class="string">&quot;/admin&quot;</span>)
+            .to(|| <span class="kw">async </span>{ HttpResponse::Ok().finish() })
+            .guard(PermissionGuard::new(<span class="string">&quot;ROLE_ADMIN&quot;</span>.to_string())))
+    .service(web::resource(<span class="string">&quot;/admin&quot;</span>) <span class="comment">// fallback endpoint if you want to return a 403 HTTP code 
+            </span>.to(|| <span class="kw">async </span>{ HttpResponse::Forbidden().finish() }))</code></pre></div>
+<details>
+<summary> <b><i> Example of custom fallback endpoint for `Scope` with `Guard` </i></b></summary>
+<br/>
+<p>Since <code>Guard</code> is intended only for routing, if the user doesn’t have permissions, it returns a <code>404</code> HTTP code. But you can override the behavior like this:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web_grants::{PermissionGuard, GrantsMiddleware};
+<span class="kw">use </span>actix_web::http::header;
+
+App::new()
+    .wrap(GrantsMiddleware::with_extractor(extract))
+    .service(web::scope(<span class="string">&quot;/admin&quot;</span>)
+        .guard(PermissionGuard::new(<span class="string">&quot;ROLE_ADMIN_ACCESS&quot;</span>.to_string()))
+        .service(web::resource(<span class="string">&quot;/users&quot;</span>)
+            .to(|| <span class="kw">async </span>{ HttpResponse::Ok().finish() }))
+    ).service(
+        web::resource(<span class="string">&quot;/admin{regex:$|/.*?}&quot;</span>).to(|| <span class="kw">async </span>{ 
+            HttpResponse::TemporaryRedirect().append_header((header::LOCATION, <span class="string">&quot;/login&quot;</span>)).finish()
+        }))</code></pre></div>
+<p>When <code>Guard</code> lets you in the <code>Scope</code> (meaning you have <code>&quot;ROLE_ADMIN_ACCESS&quot;</code>), the redirect will be unreachable for you. Even if you will request <code>/admin/some_undefined_page</code>.</p>
+<p>Note: <code>regex</code> is a <code>Path</code> variable containing passed link.</p>
+</details>    
+<h4 id="example-of-manual-way-protection"><a href="#example-of-manual-way-protection">Example of manual way protection</a></h4>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>actix_web_grants::permissions::{AuthDetails, PermissionsCheck};
+
+<span class="kw">async fn </span>manual_secure(details: AuthDetails) -&gt; HttpResponse {
+    <span class="kw">if </span>details.has_permission(ROLE_ADMIN) {
+        <span class="kw">return </span>HttpResponse::Ok().body(<span class="string">&quot;ADMIN_RESPONSE&quot;</span>);
+    }
+    HttpResponse::Ok().body(<span class="string">&quot;OTHER_RESPONSE&quot;</span>)
+}</code></pre></div>
+<p>You can find more <a href="https://github.com/DDtKey/actix-web-grants/tree/main/examples"><code>examples</code></a> in the git repository folder and <a href="https://docs.rs/actix-web-grants"><code>documentation</code></a>.</p>
+<h3 id="supported-actix-web-versions"><a href="#supported-actix-web-versions">Supported <code>actix-web</code> versions</a></h3>
+<ul>
+<li>For <code>actix-web-grants: 2.*</code> supported version of <code>actix-web</code> is <code>3.*</code></li>
+<li>For <code>actix-web-grants: 3.*</code> supported version of <code>actix-web</code> is <code>4.*</code></li>
+</ul>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="permissions/index.html" title="mod actix_web_grants::permissions">permissions</a></div><div class="desc docblock-short">A set of traits and structures for custom integration.</div></li><li><div class="item-name"><a class="mod" href="proc_macro/index.html" title="mod actix_web_grants::proc_macro">proc_macro</a></div><div class="desc docblock-short">Procedural macros for checking user permissions or roles.</div></li></ul><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.GrantsMiddleware.html" title="struct actix_web_grants::GrantsMiddleware">GrantsMiddleware</a></div><div class="desc docblock-short">Built-in middleware for extracting user permission.</div></li><li><div class="item-name"><a class="struct" href="struct.PermissionGuard.html" title="struct actix_web_grants::PermissionGuard">PermissionGuard</a></div><div class="desc docblock-short">Implementation of Guard trait for validate permissions</div></li></ul></section></div></main><div id="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="actix_web_grants" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0 (84c898d65 2023-04-16)" data-search-js="search-8a59a8356673ec1f.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

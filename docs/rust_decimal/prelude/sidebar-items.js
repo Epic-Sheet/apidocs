@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RoundingStrategy"],"struct":["Decimal"],"trait":["FromPrimitive","FromStr","One","Signed","ToPrimitive","Zero"]};

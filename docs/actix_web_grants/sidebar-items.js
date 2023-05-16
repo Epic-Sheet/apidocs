@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["permissions","proc_macro"],"struct":["GrantsMiddleware","PermissionGuard"]};

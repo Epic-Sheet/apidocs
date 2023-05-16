@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["has_any_permission","has_any_role","has_permissions","has_roles"]};
